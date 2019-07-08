@@ -41,24 +41,25 @@ public class LessonTwoMain {
         MyArrayList<Integer> listForSelectionSort = copyList(listCommon);
         MyArrayList<Integer> listForInsertionSort = copyList(listCommon);
 
-        // Эксперимент сортировки выбором: вычисление времени выполнения
-        System.out.println("Сортировка вставками: ");
-        long startTime2 = System.currentTimeMillis();
-        listForInsertionSort.insertionSort(Integer::compareTo);
-        long endTime2 = System.currentTimeMillis();
-        long resultTime2 = endTime2 - startTime2;
-        System.out.println("Время сортировки вставкой: " + resultTime2);
+        for (int i = 0; i <= 20; i++) {
+            // Эксперимент сортировки выбором: вычисление времени выполнения
+            System.out.println("Сортировка вставками: ");
+            long startTime2 = System.currentTimeMillis();
+            listForInsertionSort.insertionSort(Integer::compareTo);
+            long endTime2 = System.currentTimeMillis();
+            long resultTime2 = endTime2 - startTime2;
+            System.out.println("Время сортировки вставкой: " + resultTime2);
 
-        System.out.println();
+            System.out.println();
 
-        // Эксперимент сортировки выбором: вычисление времени выполнения
-        System.out.println("Сортировка выбором:");
-        long startTime1 = System.currentTimeMillis();
-        listForSelectionSort.selectionSort(new MyIntComporator());
-        long endTime1 = System.currentTimeMillis();
-        long resultTime1 = endTime1 - startTime1;
-        System.out.println("Время сортировки выбором: " + resultTime1);
-
+            // Эксперимент сортировки выбором: вычисление времени выполнения
+            System.out.println("Сортировка выбором:");
+            long startTime1 = System.currentTimeMillis();
+            listForSelectionSort.selectionSort(new MyIntComporator());
+            long endTime1 = System.currentTimeMillis();
+            long resultTime1 = endTime1 - startTime1;
+            System.out.println("Время сортировки выбором: " + resultTime1);
+        }
     }
 
     // Метод заполнения списка случайными числами
