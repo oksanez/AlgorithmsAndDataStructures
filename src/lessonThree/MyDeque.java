@@ -1,5 +1,6 @@
 package lessonThree;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -15,6 +16,8 @@ public class MyDeque<Item> {
     private int left = 0;
     private int right = 0;
 
+    public int size() { return size; }
+
     public boolean isEmpty() { return size == 0; }
 
     private void resize(int capacity) {
@@ -27,17 +30,17 @@ public class MyDeque<Item> {
         queue = tmp;
     }
 
-    public Item insertLeft(Item item) {
-        if (isEmpty()) {
-            throw new NoSuchElementException("Queue is empty.");
+    public void insertLeft(Item item) {
+        if (size == queue.length) {
+            resize(queue.length * 2);
         }
-        item = (Item) queue[left];
+        if(left > 0) {
+            left--;
+        } else {
+            left = queue.length - 1;
+        }
+        queue[left] = item;
         size++;
-        left = (left + 1) % queue.length;
-        if (size == queue.length / 4 && size > 0) {
-            resize(queue.length / 2);
-        }
-        return item;
     }
 
     public void insertRight(Item item) {
@@ -45,8 +48,7 @@ public class MyDeque<Item> {
             resize(queue.length * 2);
         }
         queue[right++] = item;
-        //if (end == queue.length) { end = 0; }
-        right %= queue.length;
+        right %= queue.length; // перенесли right на 0 если right совпала с длиной очереди
         size++;
 
     }
@@ -57,7 +59,7 @@ public class MyDeque<Item> {
         }
         Item item = (Item) queue[left];
         queue[left] = null;
-        --size;
+        size--;
         left = (left + 1) % queue.length;
         if (size == queue.length / 4 && size > 0) {
             resize(queue.length / 2);
@@ -70,14 +72,28 @@ public class MyDeque<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("Queue is empty.");
         }
-        Item item = (Item) queue[right];
-        queue[right] = null;
+        Item item = (Item) queue[right - 1];
+        queue[right - 1] = null;
         size--;
-        right = (right + 1) % queue.length;
+        right = (right - 1) % queue.length;
         if (size == queue.length / 4 && size > 0) {
             resize(queue.length / 2);
         }
         return item;
+    }
+
+    public Item peekLeft() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue is empty.");
+        }
+        return (Item) queue[left];
+    }
+
+    public Item peekRight() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue is empty.");
+        }
+        return (Item) queue[right - 1];
     }
 
     public String toString() {

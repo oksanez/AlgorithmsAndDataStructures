@@ -57,15 +57,37 @@ public class Program {
         deque.insertRight('t');
         deque.insertRight('a');
         deque.insertRight('m');
+        deque.insertRight('b');
         System.out.println(deque);
+        System.out.println(deque.size());
+        System.out.println(deque.peekLeft());
+        System.out.println(deque.peekRight());
         deque.insertLeft('g');
         deque.insertLeft('v');
         deque.insertLeft('w');
         deque.insertLeft('k');
         System.out.println(deque);
+        System.out.println(deque.size());
+        System.out.println(deque.peekLeft());
+        System.out.println(deque.peekRight());
         deque.removeLeft();
         System.out.println(deque);
+        System.out.println(deque.size());
+        deque.removeRight();
+        deque.removeRight();
+        deque.removeRight();
         deque.removeRight();
         System.out.println(deque);
+        System.out.println(deque.size());
+        deque.insertLeft('4');
+        deque.insertLeft('5');
+        deque.insertLeft('6');
+        deque.insertLeft('7');
+        System.out.println(deque);
+        System.out.println(deque.size());
+        deque.insertRight('l');
+        deque.insertRight('h');
+        System.out.println(deque);
+        System.out.println(deque.size());
     }
 }
