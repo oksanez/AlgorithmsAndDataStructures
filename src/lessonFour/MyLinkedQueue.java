@@ -10,4 +10,6 @@ public class MyLinkedQueue<Item> {
     public void enqueue(Item item) { queue.addLast(item); }
 
     public Item dequeue() { return queue.removeFirst(); }
+
+    public  String toString() { return queue.toString(); }
 }

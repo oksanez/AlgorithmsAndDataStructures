@@ -36,5 +36,32 @@ public class Program {
             System.out.print(c + ", ");
         }
 
+        System.out.println();
+        System.out.println();
+        System.out.println("--- Queue --");
+
+        MyLinkedQueue<Character> queue = new MyLinkedQueue<>();
+        queue.enqueue('w');
+        queue.enqueue('y');
+        queue.enqueue('x');
+        System.out.println(queue.size());
+        System.out.println(queue);
+        queue.dequeue();
+        System.out.println(queue);
+
+        System.out.println();
+        System.out.println();
+        System.out.println("--- Stack --");
+
+        MyLinkedStack<Character> stack = new MyLinkedStack<>();
+        stack.push('k');
+        stack.push('l');
+        stack.push('m');
+        stack.push('n');
+        System.out.println(stack.size());
+        System.out.println(stack);
+        stack.pop();
+        System.out.println(stack);
+
     }
 }
