@@ -128,11 +128,23 @@ public class MyLinkedList<Item> implements Iterable<Item> {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException();
         }
-        int currentIndex = 0;
-        Node currentNode = first;
-        while (currentIndex < index) {
-            currentNode = currentNode.next;
-            currentIndex++;
+        Node currentNode = null;
+        if(index <= size/2) {
+            int currentIndex = 0;
+            currentNode = first;
+            while (currentIndex < index) {
+                currentNode = currentNode.next;
+                currentIndex++;
+
+            }
+        } else {
+            int currentIndex = size - 1;
+            currentNode = last;
+            while (currentIndex > index) {
+                currentNode = currentNode.previous;
+                currentIndex--;
+            }
+
         }
         return currentNode.item;
     }
@@ -141,27 +153,62 @@ public class MyLinkedList<Item> implements Iterable<Item> {
         if (index < 0 || index > size - 1) {
             throw new IndexOutOfBoundsException();
         }
-        int currentIndex = 0;
-        Node currentNode = first;
-        while (currentIndex < index) {
-            currentNode = currentNode.next;
-            currentIndex++;
+        Node currentNode = null;
+        if(index <= size/2) {
+            int currentIndex = 0;
+            currentNode = first;
+            while (currentIndex < index) {
+                currentNode = currentNode.next;
+                currentIndex++;
+            }
+        } else {
+            int currentIndex = size - 1;
+            currentNode = last;
+            while (currentIndex > index) {
+                currentNode = currentNode.previous;
+                currentIndex--;
+            }
         }
         currentNode.item = item;
     }
 
-    public int indexOf(Item item) {
-        Node currentNode = first;
-        int currentIndex = 0;
-        //!(a || b) = !a && !b
-        while (currentNode != null && !currentNode.item.equals(item)) {
-            currentIndex++;
-            currentNode = currentNode.next;
+    public void add(int index, Item item) { //addBefore
+        Node currentNode = null;
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
         }
-        return currentNode == null ? -1 : currentIndex;
+        if (index == 0) {
+            addFirst(item);
+        }
+        else if (index == size) {
+            addLast(item);
+        }
+        else if(index <= size/2) {
+            currentNode = first;
+            int currentIndex = 0;
+            while (currentIndex < index) {
+                currentIndex++;
+                currentNode = currentNode.next;
+            }
+            Node previous = currentNode.previous;
+            Node newNode = new Node(previous, item, currentNode);
+            previous.next = newNode;
+            currentNode.previous = newNode;
+            size++;
+        } else {
+            currentNode = last;
+            int currentIndex = size - 1;
+            while (currentIndex > index) {
+                currentIndex--;
+                currentNode = currentNode.previous;
+            }
+            Node previous = currentNode.previous;
+            Node newNode = new Node(previous, item, currentNode);
+            previous.next = newNode;
+            currentNode.previous = newNode;
+            size++;
+        }
     }
-
-    public boolean contains(Item item) { return indexOf(item) > -1; }
 
     public Item remove(Item item) {
         Node currentNode = first;
@@ -187,30 +234,19 @@ public class MyLinkedList<Item> implements Iterable<Item> {
         return currentNode.item;
     }
 
-    public void add(int index, Item item) { //addBefore
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException();
+
+    public int indexOf(Item item) {
+        Node currentNode = first;
+        int currentIndex = 0;
+        //!(a || b) = !a && !b
+        while (currentNode != null && !currentNode.item.equals(item)) {
+            currentIndex++;
+            currentNode = currentNode.next;
         }
-        if (index == 0) {
-            addFirst(item);
-        }
-        else if (index == size) {
-            addLast(item);
-        }
-        else {
-            Node currentNode =first;
-            int currentIndex = 0;
-            while (currentIndex < index) {
-                currentIndex++;
-                currentNode = currentNode.next;
-            }
-            Node previous = currentNode.previous;
-            Node newNode = new Node(previous, item, currentNode);
-            previous.next = newNode;
-            currentNode.previous = newNode;
-            size++;
-        }
+        return currentNode == null ? -1 : currentIndex;
     }
+
+    public boolean contains(Item item) { return indexOf(item) > -1; }
 
     public String toString() {
         StringBuilder s = new StringBuilder();
