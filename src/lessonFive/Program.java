@@ -3,14 +3,70 @@ package lessonFive;
 public class Program {
     public static void main(String[] args) {
         //double start = System.currentTimeMillis();
-        System.out.println(productRec(1, 8));
+      //  System.out.println(productRec(1, 8));
         //double end = System.currentTimeMillis();
         //System.out.println((end - start) / 1000);
+
+        System.out.println("Конечный результат: " + raiseToPower(2, -3));
+        System.out.println("Конечный результат: " + raiseToPower(2, 3));
+        System.out.println("Конечный результат: " + raiseToPower(1, 0));
+        System.out.println("Конечный результат: " + raiseToPower(0, 1));
+        System.out.println("Конечный результат: " + raiseToPowerRec(2, -3));
+        System.out.println("Конечный результат: " + raiseToPowerRec(2, 3));
+        System.out.println("Конечный результат: " + raiseToPowerRec(1, 0));
+        System.out.println("Конечный результат: " + raiseToPowerRec(0, 1));
+
     }
 
     //6. Дано целое число a и натуральное число b. Возвести a в степень b.
     //a^b = a * a * ... * a - b раз
     //b - четное число!
+    public static double raiseToPowerRec(int a, int b) {
+        System.out.print("f(" + a + ", " + b + ") -> ");
+        double result = 1;
+        if (a == 0) {
+            return 0;
+        }
+        else if (b == 0) {
+            return 1;
+        }
+        else if (b == -1) {
+            return (double) 1/a;
+        }
+        else if (b < 0) {
+            result = raiseToPowerRec(a, (-1)*b - 1) * a;
+            System.out.println("текущий результат: " + result);
+            return 1/result;
+        }
+        else if (b > 0) {
+            return raiseToPowerRec(a, b - 1) * a;
+        }
+
+        return result;
+    }
+
+    public static double raiseToPower(int a, int b) {
+        double result = 1;
+        if(a == 0) {
+            return 0;
+        } else
+            if(b == 0) {
+            return 1;
+        } else
+            if(b > 0) {
+            while (b > 0) {
+                result *= a;
+                b--;
+            }
+        } else {
+            while (b < 0) {
+                result *= a;
+                b++;
+            }
+            result = (double) 1/result;
+        }
+        return result;
+    }
 
     //5. Даны два целых неотрицательных числа a и b.
     //Без использования операция умножения найти произведение чисел a и b.
